@@ -1,6 +1,6 @@
 # Go Redux
 
-[![GoDoc](https://godoc.org/github.com/rcliao/redux?status.svg)](https://godoc.org/github.com/rcliao/redux)
+[![GoDoc](https://godoc.org/github.com/rcliao/redux?status.svg)](https://godoc.org/github.com/rcliao/redux)[![Build Status](https://travis-ci.org/rcliao/redux.svg?branch=master)](https://travis-ci.org/rcliao/redux)
 
 Redux implementation in GoLang.
 
