@@ -1,5 +1,7 @@
 # Go Redux
 
+[![GoDoc](https://godoc.org/github.com/rcliao/redux?status.svg)](https://godoc.org/github.com/rcliao/redux)
+
 Redux implementation in GoLang.
 
 ## Motivation
