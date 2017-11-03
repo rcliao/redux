@@ -1,5 +1,7 @@
 package redux
 
+import "github.com/mohae/deepcopy"
+
 // State is simply a map of name to anything
 type State map[string]interface{}
 
@@ -35,7 +37,9 @@ func NewStore(initialState State, reducers []Reducer) *Store {
 // Dispatch sends action to store and returns updated state
 func (s *Store) Dispatch(action Action) State {
 	for _, reducer := range s.reducers {
-		s.currentState = reducer(s.currentState, action)
+		copy := deepcopy.Copy(s.currentState).(State)
+
+		s.currentState = reducer(copy, action)
 		for _, listener := range s.listeners {
 			listener(s.currentState)
 		}
