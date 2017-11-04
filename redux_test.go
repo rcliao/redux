@@ -33,7 +33,11 @@ func TestCounter(t *testing.T) {
 			}
 		},
 	}
+	subCounter := 0
 	store := NewStore(initialState, reducers)
+	store.Subscribe(func(s State) {
+		subCounter++
+	})
 	store.Dispatch(Action{Type: "INCREMENT"})
 	if store.currentState["counter"].(int) != 1 {
 		t.Error("should increment state to 1", store.currentState)
@@ -54,5 +58,16 @@ func TestCounter(t *testing.T) {
 	}
 	if initialState["counter"].(int) != 0 {
 		t.Error("should not mutate initial state", initialState)
+	}
+	if subCounter != 3 {
+		t.Error("should notify subscriber three times", subCounter)
+	}
+	if store.GetState()["counter"] != 1 {
+		t.Error("should get the updated state correctly", store.GetState())
+	}
+	store.SetReducers([]Reducer{})
+	store.Dispatch(Action{Type: "INCREMENT"})
+	if store.GetState()["counter"] != 1 {
+		t.Error("should not update state after removing reducer", store.GetState())
 	}
 }

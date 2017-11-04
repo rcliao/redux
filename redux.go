@@ -47,6 +47,16 @@ func (s *Store) Dispatch(action Action) State {
 	return s.currentState
 }
 
+// GetState returns the copy of the current state
+func (s *Store) GetState() State {
+	return deepcopy.Copy(s.currentState).(State)
+}
+
+// SetReducers updates the internal reducers
+func (s *Store) SetReducers(reducers []Reducer) {
+	s.reducers = reducers
+}
+
 // Subscribe allows consumer to listen for state changes
 func (s *Store) Subscribe(listener Listener) {
 	s.listeners = append(s.listeners, listener)
